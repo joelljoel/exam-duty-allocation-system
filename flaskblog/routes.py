@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect,session
 from flaskblog import app,db,bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm, RegistrationForm1,Exam
 from flaskblog.models import User, Post
@@ -37,6 +37,7 @@ def homepage():
     return render_template('home.html',posts=posts)
 
 @app.route('/home2')
+@login_required
 def homepage2():
     return render_template('home2.html',posts=posts)
 
@@ -78,6 +79,7 @@ def login():
     form=LoginForm()
     if form.validate_on_submit():
         if form.email.data=='admin@blog.com' and form.password.data=='password' :
+            session['logged_in'] = True
             flash('You have been logged in !','success')
             return redirect(url_for('homepage'))
         else:
@@ -86,21 +88,28 @@ def login():
 
 
 
-@app.route('/about')
-def about():
-    return render_template('about.html',title='about')
+@app.route('/support')
+def support():
+    return render_template('support.html',title='support')
 
 @app.route('/test')
 def test():
     return render_template('test.html',title='test')
 
 @app.route('/createexam')
-@login_required
 def createexam():
     form=Exam()
     # if form.validate_on_submit():
     return render_template('create.html',title='createexam')
     
+@app.route('/myexams')
+def myexams():
+    return render_template('myexams.html',title='my-exams')
+
+@app.route('/managefaculty')
+def managefaculty():
+    return render_template('managefaculty.html',title='manage-faculty')
+
 @app.route('/logout')
 def logout():
     logout_user()
