@@ -1,4 +1,55 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>exam creation</h1>
+    <h1>Exam Creation</h1>
+    <form>
+    <div class="mb-3">
+        <label for="text" class="form-label">Exam Name</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <!-- <div id="emailHelp" class="form-text">Enter Exam name</div> -->
+    </div>
+    <div class="mb-3">
+        <label for="Date" class="form-label">Exam Date</label>
+        <input type="date" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+        <label for="Time" class="form-label">Exam Time</label>
+        <input type="time" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+        <label for="Time" class="form-label">Exam Duration</label>
+        <input type="time" class="form-control" id="exampleInputPassword1">
+    </div>
+    
+    <div class="mb-3">
+        <label for="text" class="form-label">Faculty Name</label>
+        <input type="text" class="form-control" id="exampleInputPassword1">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleDataList" class="form-label">Faculty Post</label>
+        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+        <datalist id="datalistOptions">
+            <option value="Professor">
+            <option value="Head of Department">
+            <option value="Asst Professor">
+            <option value="Guest lecturer">
+        </datalist>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Faculty Contact Details</label>
+        <input type="email" class="form-control" id="exampleInputPassword1">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+   
+    </form>
+    <!-- <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div> -->
+   
+
+
+    <br>
+    
 {% endblock content %}
