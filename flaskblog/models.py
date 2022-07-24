@@ -1,4 +1,5 @@
 from datetime import datetime
+from enum import unique
 from flaskblog import db,login_manager
 from flask_login import UserMixin
 
@@ -29,3 +30,12 @@ class Post(db.Model):
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
 
+class Exam(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    examname = db.Column(db.String(100),unique=True, nullable=False)
+    exam_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    faculty_name = db.Column(db.String(100), nullable=False)
+    facult_email = db.Column(db.String(100),unique=True, nullable=False)
+
+    def __repr__(self):
+        return f"Post('{self.examname}', '{self.exam_date}')"

@@ -31,8 +31,10 @@
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
+              <!-- <a class="nav-item nav-link" href="  {{ url_for('account')}} ">My Account</a> 
+              <a class="nav-item nav-link" href="  {{ url_for('myexams')}} ">My Exams</a>  -->
               <a class="nav-item nav-link" href="{{ url_for('logout') }}">Log out</a>
-              <a class="nav-item nav-link" href="  {{ url_for('myexams')}} ">My Exams</a> 
+              
             </div>
           </div>
         </div>
@@ -54,8 +56,8 @@
         </div>
         <div class="col-md-4">
           <div class="content-section">
-            <h3>Our Sidebar</h3>
-            <p class='text-muted'>You can put any information here you'd like.
+            <h3> Sidebar</h3>
+            <p class='text-muted'>Exam cell notifications.
               <ul class="list-group">
                 <li class="list-group-item list-group-item-light">Upcoming Exams</li>
                 <li class="list-group-item list-group-item-light">Announcements</li>

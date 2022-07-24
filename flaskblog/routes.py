@@ -1,4 +1,5 @@
-from flask import render_template, url_for, flash, redirect,session
+from flask import render_template, url_for, flash, redirect,session,request
+import requests
 from flaskblog import app,db,bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm, RegistrationForm1,Exam
 from flaskblog.models import User, Post
@@ -52,8 +53,9 @@ def facultylogin():
         user=User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password,form.password.data):
             login_user(user,remember=form.remember.data)
+            next_page=request.args.get('next')
             flash('You have been logged in !','success')
-            return redirect(url_for('homepage2'))
+            return redirect(next_page) if next_page else  redirect(url_for('homepage2'))
         else:
             flash('Login Unsuccessfull!, Check username and password')
    
@@ -109,6 +111,11 @@ def myexams():
 @app.route('/managefaculty')
 def managefaculty():
     return render_template('managefaculty.html',title='manage-faculty')
+
+@app.route('/account')
+@login_required
+def account():
+    return render_template('account.html',title='account')
 
 @app.route('/logout')
 def logout():
