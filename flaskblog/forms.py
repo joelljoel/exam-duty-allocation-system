@@ -1,7 +1,8 @@
-from wsgiref.validate import validator
-from xml.dom import ValidationErr
+# from wsgiref.validate import validator
+# from xml.dom import ValidationErr
+from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField,DateField,TimeField
 from wtforms.validators import DataRequired, Length, Email, EqualTo,ValidationError
 from flaskblog.models import User
 
@@ -47,16 +48,39 @@ class RegistrationForm1(FlaskForm):
 class Exam(FlaskForm):
     examname = StringField('Examname',
                            validators=[DataRequired(), Length(min=2, max=20)])
-    examcode = StringField('Examcode',
-                           validators=[DataRequired(), Length(min=2, max=20)])
+   
 
-    examdate = StringField('Examdate',
+    examdate = DateField('Examdate',
+                           validators=[DataRequired(), Length(min=2, max=10)])
+    examtime = TimeField('ExamTime',
+                           validators=[DataRequired(), Length(min=2, max=10)])
+    examDuration = TimeField('ExamDuration',
                            validators=[DataRequired(), Length(min=2, max=20)])
     faculty_name = StringField('Facultyname',
-                           validators=[DataRequired(), Length(min=2, max=20)])
-    faculty_email = StringField('Email',
+                           validators=[DataRequired(), Length(min=2, max=30)])
+    faculty_email = StringField('FacultyEmail',
                         validators=[DataRequired(), Email()])
     faculty_post=StringField('Position',validators=[DataRequired()])
     
     submit = SubmitField('Sign Up')
 
+class UpdateAccountForm(FlaskForm):
+    username = StringField('Username',
+                           validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email',
+                        validators=[DataRequired(), Email()])
+    faculty_post=StringField('position',validators=[DataRequired()])
+   
+    submit = SubmitField('Update')
+
+    def validate_username(self,username):
+        if username.data!= current_user.username:
+            user=User.query.filter_by(username=username.data).first()
+            if user:
+                raise ValidationError('Username already exists!')
+
+    def validate_email(self,email):
+        if email.data!= current_user.email:
+            user=User.query.filter_by(email=email.data).first()
+            if user:
+                raise ValidationError('Email  already exists!')

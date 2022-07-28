@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect,session,request
 import requests
 from flaskblog import app,db,bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm, RegistrationForm1,Exam
+from flaskblog.forms import RegistrationForm, LoginForm, RegistrationForm1,Exam,UpdateAccountForm
 from flaskblog.models import User, Post
 from flask_login import login_user,current_user,logout_user,login_required
 
@@ -102,7 +102,7 @@ def test():
 def createexam():
     form=Exam()
     # if form.validate_on_submit():
-    return render_template('create.html',title='createexam')
+    return render_template('create1.html',title='createexam' ,form=form)
     
 @app.route('/myexams')
 def myexams():
@@ -112,12 +112,28 @@ def myexams():
 def managefaculty():
     return render_template('managefaculty.html',title='manage-faculty')
 
-@app.route('/account')
+@app.route('/account', methods=['GET','POST'])
 @login_required
 def account():
-    return render_template('account.html',title='account')
-
+    form=UpdateAccountForm()
+    if form.validate_on_submit():
+        current_user.username=form.username.data
+        current_user.email=form.email.data
+        db.session.commit()
+        flash('Account Updated!','success')
+        return redirect(url_for('account'))
+    elif request.method=='GET':
+        form.username.data=current_user.username
+        form.email.data= current_user.email
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('account.html',title='account',image_file=image_file,form=form)
+    
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+
+@app.route('/post/new')
+def new_post():
+    return render_template('create.html',title='New Post')

@@ -33,9 +33,13 @@ class Post(db.Model):
 class Exam(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     examname = db.Column(db.String(100),unique=True, nullable=False)
-    exam_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    exam_date = db.Column(db.DateTime, nullable=False)
+    exam_time = db.Column(db.DateTime, nullable=False)
+    exam_duration = db.Column(db.DateTime, nullable=False)
     faculty_name = db.Column(db.String(100), nullable=False)
+    faculty_post = db.Column(db.String(100), nullable=False)
     facult_email = db.Column(db.String(100),unique=True, nullable=False)
 
     def __repr__(self):
         return f"Post('{self.examname}', '{self.exam_date}')"
+
