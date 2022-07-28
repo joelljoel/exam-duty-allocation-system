@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import render_template, url_for, flash, redirect,session,request
 import requests
 from flaskblog import app,db,bcrypt
@@ -98,11 +99,13 @@ def support():
 def test():
     return render_template('test.html',title='test')
 
-@app.route('/createexam')
+@app.route('/createexam',methods=['POST','GET'])
 def createexam():
     form=Exam()
-    # if form.validate_on_submit():
-    return render_template('create1.html',title='createexam' ,form=form)
+    if form.validate_on_submit():
+        flash(f'Exam Successfully Created !','success')
+        return redirect(url_for('homepage'))
+    return render_template('create.html',title='createexam' ,form=form)
     
 @app.route('/myexams')
 def myexams():

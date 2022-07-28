@@ -51,11 +51,11 @@ class Exam(FlaskForm):
    
 
     examdate = DateField('Examdate',
-                           validators=[DataRequired(), Length(min=2, max=10)])
+                           validators=[DataRequired()])
     examtime = TimeField('ExamTime',
-                           validators=[DataRequired(), Length(min=2, max=10)])
+                           validators=[DataRequired()])
     examDuration = TimeField('ExamDuration',
-                           validators=[DataRequired(), Length(min=2, max=20)])
+                           validators=[DataRequired()])
     faculty_name = StringField('Facultyname',
                            validators=[DataRequired(), Length(min=2, max=30)])
     faculty_email = StringField('FacultyEmail',
