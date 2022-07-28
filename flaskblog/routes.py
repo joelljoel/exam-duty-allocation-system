@@ -106,6 +106,10 @@ def createexam():
         flash(f'Exam Successfully Created !','success')
         return redirect(url_for('homepage'))
     return render_template('create.html',title='createexam' ,form=form)
+
+@app.route('/manageexam')
+def manage_exam():
+    return render_template('manageexam.html',title='manage-faculty')
     
 @app.route('/myexams')
 def myexams():
