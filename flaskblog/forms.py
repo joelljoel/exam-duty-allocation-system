@@ -62,7 +62,7 @@ class Exam(FlaskForm):
                         validators=[DataRequired(), Email()])
     faculty_post=StringField('Position',validators=[DataRequired()])
     
-    submit = SubmitField('Sign Up')
+    submit = SubmitField('Create Exam')
 
 class UpdateAccountForm(FlaskForm):
     username = StringField('Username',

@@ -3,45 +3,29 @@ from flask import render_template, url_for, flash, redirect,session,request
 import requests
 from flaskblog import app,db,bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm, RegistrationForm1,Exam,UpdateAccountForm
-from flaskblog.models import User, Post
+from flaskblog.models import Admin, User, Post
 from flask_login import login_user,current_user,logout_user,login_required
 
 
-#dummy data
-posts=[
-    {
-        'author':'joel',
-        'title':'exam ',
-        'content':'maths',
-        'Faculty':'faculty A',
-        'date_posted':'apr 12 2022'
-    },
-    {
-        'author':'gh',
-        'title':'exam 2',
-        'content':'chemistry',
-        'Faculty':'faculty A',
-        'date_posted':'apr 13 2022'
-    }
-]
 
+#application routes
 @app.before_first_request
 def create_tables():
     db.create_all()
 
 @app.route('/')
 def home():
-    return render_template('initlogin.html',posts=posts)
+    return render_template('initlogin.html')
 
 
 @app.route('/home')
 def homepage():
-    return render_template('home.html',posts=posts)
+    return render_template('home.html')
 
 @app.route('/home2')
 @login_required
 def homepage2():
-    return render_template('home2.html',posts=posts)
+    return render_template('home2.html')
 
 @app.route('/initlogin')
 def initlogin():
@@ -82,12 +66,28 @@ def login():
     form=LoginForm()
     if form.validate_on_submit():
         if form.email.data=='admin@blog.com' and form.password.data=='password' :
-            session['logged_in'] = True
-            flash('You have been logged in !','success')
-            return redirect(url_for('homepage'))
+         session['logged_in'] = True
+         flash('You have been logged in !','success')             
+         return redirect(url_for('homepage'))
         else:
-            flash('login unsuccessfull','danger')
+         flash('login unsuccessfull','danger')
     return render_template('login.html',title='login',form=form)
+
+
+# @app.route('/login',methods=['GET','POST'])
+# def login():
+#     form=LoginForm()
+#     if form.validate_on_submit():
+#         user=Admin.query.filter_by(email=form.email.data).first()
+#         if user and bcrypt.check_password_hash(user.password,form.password.data):
+#             login_user(user,remember=form.remember.data)
+#             next_page=request.args.get('next')
+#             flash('You have been logged in !','success')
+#             return redirect(next_page) if next_page else  redirect(url_for('homepage'))
+#         else:
+#             flash('Login Unsuccessfull!, Check username and password')
+   
+#     return render_template('login.html',title='login',form=form)
 
 
 
@@ -144,3 +144,9 @@ def logout():
 @app.route('/post/new')
 def new_post():
     return render_template('create.html',title='New Post')
+
+@app.route('/updateaccount')
+def update_account():
+    form=UpdateAccountForm()
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('updateaccount.html',title='Update Account',form=form,image_file=image_file)
