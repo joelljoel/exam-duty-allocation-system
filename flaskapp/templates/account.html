@@ -1,0 +1,22 @@
+{% extends 'flayout.html' %} 
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ image_file }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ current_user.username }}</h2>
+          <p class="text-secondary">{{ current_user.email }}</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+          Update account
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Update account details</h5>
+          <p class="card-text">Edit/Update Account Details</p>
+          <a href="{{url_for('update_account')}}" class="btn btn-primary">Update</a>
+        </div>
+      </div>
+  </div>
+{% endblock content %}

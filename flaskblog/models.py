@@ -1,6 +1,6 @@
 from datetime import datetime
 from enum import unique
-from flaskblog import db,login_manager
+from flaskapp import db,login_manager
 from flask_login import UserMixin
 
 

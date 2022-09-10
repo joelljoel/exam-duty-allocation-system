@@ -1,9 +1,9 @@
 from crypt import methods
 from flask import render_template, url_for, flash, redirect,session,request
 import requests
-from flaskblog import app,db,bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm, RegistrationForm1,Exam,UpdateAccountForm
-from flaskblog.models import Admin, User, Post
+from flaskapp import app,db,bcrypt
+from flaskapp.forms import RegistrationForm, LoginForm, RegistrationForm1,Exam,UpdateAccountForm
+from flaskapp.models import Admin, User, Post
 from flask_login import login_user,current_user,logout_user,login_required
 
 

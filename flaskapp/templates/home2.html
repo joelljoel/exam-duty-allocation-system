@@ -1,0 +1,21 @@
+{% extends "flayout.html" %}
+{% block content %}
+    <br>
+    <div class="card">
+      <h5 class="card-header"></h5>
+      <div class="card-body">
+        <h5 class="card-title">My Exams</h5>
+        <p class="card-text">View allocated exam duties</p>
+        <a href="{{url_for('myexams')}} " class="btn btn-primary">My exams</a>
+      </div>
+    </div>
+    <br>
+    <div class="card">
+      <h5 class="card-header"></h5>
+      <div class="card-body">
+        <h5 class="card-title">My Account</h5>
+        <p class="card-text">View Account details</p>
+        <a href="{{url_for('account')}} " class="btn btn-primary">My Account</a>
+      </div>
+    </div>
+{% endblock content %}
